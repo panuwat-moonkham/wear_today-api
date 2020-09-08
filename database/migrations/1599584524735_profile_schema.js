@@ -6,7 +6,13 @@ const Schema = use('Schema')
 class ProfileSchema extends Schema {
   up () {
     this.create('profiles', (table) => {
-      table.increments()
+      table.increments('user_id')
+      table.string('first_name')
+      table.string('last_name')
+      table.string('e-mail').unique()
+      table.string('username').unique()
+      table.string('password')
+      table.string('status')
       table.timestamps()
     })
   }
