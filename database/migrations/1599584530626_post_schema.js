@@ -9,7 +9,7 @@ class PostSchema extends Schema {
       table.increments('post_id')
       table.string('post_title')
       table.string('description')
-      table.timestamp('post_date')
+      table.timestamp('post_date')this.fn.now()
       table.integer('category_id').unsigned()
       table.timestamps()
 

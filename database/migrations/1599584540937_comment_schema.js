@@ -8,7 +8,7 @@ class CommentSchema extends Schema {
     this.create('comments', (table) => {
       table.increments('comment_id')
       table.string('comment_content')
-      table.timestamp('comment_date')
+      table.timestamp('comment_date')this.fn.now()
       table.integer('user_id').unsigned()
       table.integer('post_id').unsigned()
       table.timestamps()

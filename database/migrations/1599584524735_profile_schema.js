@@ -12,7 +12,7 @@ class ProfileSchema extends Schema {
       table.string('e-mail').unique()
       table.string('username').unique()
       table.string('password')
-      table.string('status')
+      table.string('status').default('user')
       table.timestamps()
     })
   }
