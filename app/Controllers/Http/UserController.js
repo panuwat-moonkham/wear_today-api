@@ -1,5 +1,6 @@
 'use strict'
 
+const UserUtil = require("../../../util/userUtil")
 const User = use('App/Models/User')
 
 class UserController {

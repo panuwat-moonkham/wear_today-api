@@ -1,5 +1,6 @@
 'use strict'
 
+const CommentUtil = require("../../../util/commentUtil")
 const Comment = use('App/Models/Comment')
 
 class CommentContrillerController {

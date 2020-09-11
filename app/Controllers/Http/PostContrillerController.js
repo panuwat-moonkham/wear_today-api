@@ -1,6 +1,7 @@
 'use strict'
 
-const Post = require("../../Models/Post")
+const Post = use('App/Models/Post')
+const PostUtil = require("../../../util/postUtil")
 
 class PostContrillerController {
     async index () {
