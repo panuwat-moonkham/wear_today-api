@@ -2,8 +2,7 @@
 
 const Database = use('Database')
 const Hash = use('Hash')
-const Profile = use('App/Models/Teacher')
-const ProfileValidator = require("../../../service/TeacherValidator")
+const ProfileValidator = require('../../../service/ProfileValidator')
 
 class ProfileController {
 
@@ -60,8 +59,17 @@ class ProfileController {
     
         return { status: 200, error: undefined, data: profile }
       }
+
+    async destroy({ request }) {
+        const { id } = request.params
     
-      
+        await Database
+          .table('profiles')
+          .where({ profile_id: id })
+          .delete()
+    
+        return { stauts: 200, error: undefined, data: { message: 'success' } }
+      }
 }
 
 module.exports = ProfileController
