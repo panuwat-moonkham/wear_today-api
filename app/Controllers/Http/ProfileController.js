@@ -5,7 +5,6 @@ const Hash = use('Hash')
 const ProfileValidator = require('../../../service/ProfileValidator')
 
 class ProfileController {
-
     async index () {
         const profiles = await Profile.all()
     
