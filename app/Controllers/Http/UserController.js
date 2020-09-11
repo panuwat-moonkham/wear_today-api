@@ -1,6 +1,5 @@
 'use strict'
 
-const Database = use('Database')
 const User = use('App/Models/User')
 
 class UserController {
@@ -41,12 +40,12 @@ class UserController {
     async update({ request }) {
         const { body, params } = request
         const { id } = params
-        const { first_name, last_name, email,user_name} = body
+        const { first_name, last_name, email, user_name} = body
     
         const userId = await Database
           .table('users')
           .where({ profile_id: id })
-          .update({ first_name, last_name, email, status })
+          .update({ first_name, last_name, email, user_name})
     
         const user = await Database
           .table('users')
