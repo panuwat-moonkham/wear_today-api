@@ -6,7 +6,6 @@ const Profile = use('App/Models/Teacher')
 const ProfileValidator = require("../../../service/TeacherValidator")
 
 class ProfileController {
-
     async index () {
         const profiles = await Profile.all()
     
