@@ -3,21 +3,14 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class CommentSchema extends Schema {
+class CreateCommentSchema extends Schema {
   up () {
     this.create('comments', (table) => {
       table.increments('comment_id')
       table.string('comment_content')
       table.timestamp('comment_date').default(this.fn.now())
-      table.integer('user_id').unsigned()
-      table.integer('post_id').unsigned()
       table.timestamps()
 
-      table
-      .foreign('post_id')
-      .references('post.category_id')
-      .onDelete('CASCADE')
-      .onUpdate('CASCADE')
     })
   }
 
@@ -26,4 +19,4 @@ class CommentSchema extends Schema {
   }
 }
 
-module.exports = CommentSchema
+module.exports = CreateCommentSchema
