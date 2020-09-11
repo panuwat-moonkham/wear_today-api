@@ -20,6 +20,9 @@ class Post extends Model {
     comment(){
         return this.belongsTo('App/Models/Comment')
     }
+    category(){
+        return this.belongsTo('App/Models/Category')
+    }
 }
 
 module.exports = Post

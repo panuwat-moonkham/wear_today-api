@@ -3,9 +3,9 @@
 /** @type {typeof import('@adonisjs/lucid/src/Lucid/Model')} */
 const Model = use('Model')
 
-class Comment extends Model {
+class Category extends Model {
     static get primaryKey(){
-        return 'comment_id'
+        return 'category_id'
     }
     static get createdAtColumn(){
         return null;
@@ -17,7 +17,9 @@ class Comment extends Model {
     post(){
         return this.hasMany('App/Models/Post')
     }
-    
+    photo(){
+        return this.belongsTo('App/Models/Photo')
+    }
 }
 
-module.exports = Comment
+module.exports = Category
