@@ -1,5 +1,15 @@
 'use strict'
 
+const Post = require("../../Models/Post")
+
+const Database = use('Database')
+
+function numberTypeParamValidator(number) {
+    if(Number.isNaN(parseInt(number))) 
+        return { error: ` param: ${number} is not support, Pleasr use number type param instead.` }
+
+    return {}
+}
 class PostContrillerController {
     async index(){
         const post = await Database.table('posts')
