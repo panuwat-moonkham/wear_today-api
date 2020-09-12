@@ -1,4 +1,3 @@
-//const Subject = use("App/Models/Subject")
 
 const Post = require("../app/Models/Post")
 
@@ -22,11 +21,11 @@ class PostUtil {
         .fetch()
         .then(response => response.first())
     }
-    async create(userInstance, references){
-        const postId = await User.create(userInstance)
+    async create(postInstance, references){
+        const postId = await Post.create(postInstance)
         const post =  this._Post
         .query()
-        .where('user_id', postId)
+        .where('post_id', postId)
 
         return this._withReferrnces(post,references)
         .fetch()

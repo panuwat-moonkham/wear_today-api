@@ -1,4 +1,3 @@
-//const Subject = use("App/Models/Subject")
 
 const User = require("../app/Models/User")
 
