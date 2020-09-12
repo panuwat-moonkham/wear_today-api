@@ -7,7 +7,6 @@ class CreatePhotoSchema extends Schema {
   up () {
     this.create('photos', (table) => {
       table.increments('photo_id',150)
-      table.string('category_name',150)
       table.string('category_image',150)
       table.string('shirt_image',150)
       table.string('pants_image',150)
