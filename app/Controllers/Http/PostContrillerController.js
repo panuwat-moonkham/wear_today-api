@@ -1,60 +1,64 @@
 'use strict'
 
+const Database = use('Database')
 const Post = use('App/Models/Post')
 const PostUtil = require("../../../util/postUtil")
 
 class PostContrillerController {
-    async index () {
-        const users = await User.all()
+  async index({request}){
+    const {references = undefined} = request.qs
+    const postUtil = new PostUtil(Post)
+    const posts = await postUtil.getAll(references)
+
+    return { status : 200 , error : undefined, data : posts}
+    }
+
+async show({request}){
+    const { id } = request.params
+    const { references } = request.qs
+    const postUtil = new PostUtil(Post)
+    const posts =await postUtil.getById(id,references)
+  
+    return{ status: 200, error : undefined, data : posts ||{} }
+}
+
+async store ({request}){
+    const {post_title,description} = request.body
+    const { references } = request.qs
+
+    const postUtil = new PostUtil(Post)
+    const post = await postUtil.create({post_title,description},references)
+    return {status : 200,error : undefined , data : post }
+}
+
+async update({ request }) {
+    const { body, params } = request
+    const { id } = params
+    const { post_title,description} = body
     
-        return { status: 200, error: undefined, data: users }
-      }
+    const postId = await Database
+      .table('posts')
+      .where({ post_id: id })
+      .update({ post_title,description})
+
+    const post = await Database
+      .table('posts')
+      .where({ post_id: postId })
+      .first()
     
-    async show ({ request }) {
-        const { id } = request.params
-    
-        const validatedValue = numberTypeParamValidator(id)
-    
-        if (validatedValue.error)
-          return { status: 500, error: validatedValue.error, data: undefined }
-    
-        const  profile = await  Profile.find(id)
-    
-        return { status: 200, error: undefined, data:  profile || {} }
+    return { status: 200, error: undefined, data: post }
       }
 
-    async store ({ request }) {
-        const {  post_title, description } = request.body
+async destroy({request}){
+    const {id} = request.params
     
-        const validatedData = await ProfileValidator(request.body)
+    await Database
+      .table('posts')
+      .where({post_id:id})
+      .delete()
     
-        if (validatedData.error)
-          return { status: 422, error: validatedData.error, data: undefined }
-        
-        const user = await Database
-          .table('users')
-          .insert({ post_title, description})
-    
-        return { status: 200, error: undefined, data: user }
-      }
-
-    async update({ request }) {
-        const { body, params } = request
-        const { id } = params
-        const {  post_title, description} = body
-    
-        const userId = await Database
-          .table('users')
-          .where({ profile_id: id })
-          .update({  post_title, description})
-    
-        const user = await Database
-          .table('users')
-          .where({ user_id: userId })
-          .first()
-    
-        return { status: 200, error: undefined, data: user }
-      }
+    return {status: 200, error: undefined, data: {massage: 'success' }}
+    }
 }
 
 module.exports = PostContrillerController

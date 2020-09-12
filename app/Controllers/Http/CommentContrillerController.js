@@ -48,6 +48,17 @@ async update({ request }) {
     
     return { status: 200, error: undefined, data: comment }
       }
+
+async destroy({request}){
+    const {id} = request.params
+    
+    await Database
+      .table('comments')
+      .where({comment_id:id})
+      .delete()
+    
+    return {status: 200, error: undefined, data: {massage: 'success' }}
+    }
 }
 
 module.exports = CommentContrillerController
