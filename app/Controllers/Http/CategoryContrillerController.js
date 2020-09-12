@@ -26,8 +26,8 @@ async store ({request}){
     const {category_name,category_detail,shirt_detail,pants_detail,shoes_detail,jacket_detail,hat_detail,accessories_detail} = request.body
     const { references } = request.qs
 
-    const category = new CategoryUtil(Category)
-    const category = await Category.create({category_name,category_detail,shirt_detail,pants_detail,shoes_detail,jacket_detail,hat_detail,accessories_detail},references)
+    const categoryUtil = new CategoryUtil(Category)
+    const category = await categoryUtil.create({category_name,category_detail,shirt_detail,pants_detail,shoes_detail,jacket_detail,hat_detail,accessories_detail},references)
     return {status : 200,error : undefined , data : category }
 }
 
