@@ -1,60 +1,64 @@
 'use strict'
 
+const Database = use('Database')
 const UserUtil = require("../../../util/userUtil")
 const User = use('App/Models/User')
 
 class UserController {
-    async index () {
-        const users = await User.all()
+  async index({request}){
+    const {references = undefined} = request.qs
+    const userUtil = new UserUtil(User)
+    const users = await userUtil.getAll(references)
+
+    return { status : 200 , error : undefined, data : users}
+    }
+
+async show({request}){
+    const { id } = request.params
+    const { references } = request.qs
+    const userUtil = new UserUtil(User)
+    const users =await userUtil.getById(id,references)
+  
+    return{ status: 200, error : undefined, data : users ||{} }
+}
+
+async store ({request}){
+    const {first_name,last_name,user_name,email,password} = request.body
+    const { references } = request.qs
+
+    const userUtil = new UserUtil(User)
+    const user = await userUtil.create({first_name,last_name,user_name,email,password},references)
+    return {status : 200,error : undefined , data : user }
+}
+
+async update({ request }) {
+    const { body, params } = request
+    const { id } = params
+    const { first_name,last_name,user_name,email,password} = body
     
-        return { status: 200, error: undefined, data: users }
-      }
+    const userId = await Database
+      .table('users')
+      .where({ user_id: id })
+      .update({ first_name,last_name,user_name,email,password})
+
+    const user = await Database
+      .table('users')
+      .where({ user_id: userId })
+      .first()
     
-    async show ({ request }) {
-        const { id } = request.params
-    
-        const validatedValue = numberTypeParamValidator(id)
-    
-        if (validatedValue.error)
-          return { status: 500, error: validatedValue.error, data: undefined }
-    
-        const  profile = await  Profile.find(id)
-    
-        return { status: 200, error: undefined, data:  profile || {} }
+    return { status: 200, error: undefined, data: user }
       }
 
-    async store ({ request }) {
-        const { first_name, last_name, email,user_name, password } = request.body
+async destroy({request}){
+    const {id} = request.params
     
-        const validatedData = await ProfileValidator(request.body)
+    await Database
+      .table('users')
+      .where({user_id:id})
+      .delete()
     
-        if (validatedData.error)
-          return { status: 422, error: validatedData.error, data: undefined }
-        
-        const user = await Database
-          .table('users')
-          .insert({ first_name, last_name, email,user_name, password})
-    
-        return { status: 200, error: undefined, data: user }
-      }
-
-    async update({ request }) {
-        const { body, params } = request
-        const { id } = params
-        const { first_name, last_name, email, user_name} = body
-    
-        const userId = await Database
-          .table('users')
-          .where({ profile_id: id })
-          .update({ first_name, last_name, email, user_name})
-    
-        const user = await Database
-          .table('users')
-          .where({ user_id: userId })
-          .first()
-    
-        return { status: 200, error: undefined, data: user }
-      }
+    return {status: 200, error: undefined, data: {massage: 'success' }}
+    }
 }
 
 module.exports = UserController
