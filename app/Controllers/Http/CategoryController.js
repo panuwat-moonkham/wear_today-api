@@ -2,13 +2,13 @@
 
 const Database = use('Database')
 const Category = use('App/Models/Category')
-const CategoryUtil = require("../../../util/categorytUtil")
+const CategoryUtil = require("../../../util/categoryUtil")
 
 class CategoryController {
   async index({request}){
     const {references = undefined} = request.qs
-    const CategoryUtil = new CategoryUtil(Category)
-    const Categories = await CategoryUtil.getAll(references)
+    const categoryUtil = new CategoryUtil(Category)
+    const Categories = await categoryUtil.getAll(references)
 
     return { status : 200 , error : undefined, data : Categories}
     }

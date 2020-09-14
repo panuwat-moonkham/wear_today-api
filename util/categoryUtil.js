@@ -1,5 +1,5 @@
 
-const Category = require("../app/Models/Category")
+const CategoryUtil = require("../app/Models/Category")
 
 class CategoryUtil {
     constructor(CategoryModel){
