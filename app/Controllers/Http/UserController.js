@@ -32,31 +32,26 @@ async store ({request}){
 }
 
 async update({ request }) {
-    const { body, params } = request
-    const { id } = params
-    const { first_name,last_name,username,email,password} = body
-    
-    const userId = await Database
-      .table('users')
-      .where({ user_id: id })
-      .update({ first_name,last_name,username,email,password})
+  const {references = undefined} =request.qs
+  const validation = await Validator(request.body)
 
-    const user = await Database
-      .table('users')
-      .where({ user_id: userId })
-      .first()
+if(validation.error){
+  return {status: 422, 
+    error: validation.error,
+    data: undefined}
+}
+  const userUtil = new UserUtil(User)
+  const users = await userUtil
+  .updateById(request,references)
     
-    return { status: 200, error: undefined, data: user }
+    return { status: 200, error: undefined, data: users }
       }
 
 async destroy({request}){
-    const {id} = request.params
-    
-    await Database
-      .table('users')
-      .where({user_id:id})
-      .delete()
-    
+  const {references = undefined} =request.qs
+  const userUtil = new UserUtil(Account)
+  const user = await userUtil.deletById(request,references)
+
     return {status: 200, error: undefined, data: {massage: 'success' }}
     }
 }
