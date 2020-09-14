@@ -15,7 +15,7 @@ class Category extends Model {
     //     return null;
     // }
     post () {
-        return this.hasMany('App/Models/Post')
+        return this.belongsTo('App/Models/Post')
       }
     photo(){
         return this.belongsTo('App/Models/Photo')

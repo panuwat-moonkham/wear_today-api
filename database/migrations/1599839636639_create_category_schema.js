@@ -16,7 +16,14 @@ class CreateCategorySchema extends Schema {
       table.string('hat_detail',150)
       table.string('accessories_detail',150)
       table.integer('photo_id').unsigned()
+      table.integer('post_id').unsigned()
       table.timestamps()
+
+      table
+        .foreign('post_id')
+        .references('posts.post_id')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE')
 
       table
       .foreign('photo_id')

@@ -14,17 +14,16 @@ class Post extends Model {
     // static get updatedAtColumn(){
     //     return null;
     // }
+    category(){
+        return this.hasOne('App/Models/Category')
+    }
 
     comment(){
         return this.belongsTo('App/Models/Comment')
     }
-    users () {
-          return this
-            .belongsToMany('App/Models/User')
-            .pivotModel('App/Models/User_Write_Post')
-        }
-    category(){
-        return this.belongsTo('App/Models/Category')
+    
+    user(){
+        return this.belongsTo('App/Models/User')
     }
 
 }

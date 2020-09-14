@@ -15,7 +15,7 @@ class Comment extends Model {
     //     return null;
     // }
     post(){
-        return this.hasMany('App/Models/Post')
+        return this.hasOne('App/Models/Post')
     }
     
 }

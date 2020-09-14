@@ -15,7 +15,7 @@ class Photo extends Model {
     //     return null;
     // }
     category(){
-        return this.hasMany('App/Models/Category')
+        return this.hasOne('App/Models/Category')
     }
 }
 

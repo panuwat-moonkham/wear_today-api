@@ -10,7 +10,6 @@ class CreatePostSchema extends Schema {
       table.string('post_title').notNullable()
       table.string('description').notNullable()
       table.timestamp('post_date').default(this.fn.now())
-      table.integer('category_id').unsigned()
       table.integer('comment_id').unsigned()
       table.integer('user_id').unsigned()
       table.timestamps()
@@ -18,12 +17,6 @@ class CreatePostSchema extends Schema {
       table
         .foreign('user_id')
         .references('users.user_id')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE')
-
-      table
-        .foreign('category_id')
-        .references('categories.category_id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
 

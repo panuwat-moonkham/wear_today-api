@@ -21,80 +21,46 @@ class DatabaseSeeder {
   
     const photos = await Factory
     .model('App/Models/Photo')
-    .createMany(40)
+    .createMany(20)
 
     const comments = await Factory
     .model('App/Models/Comment')
     .createMany(20)
 
+    const posts = await Factory
+    .model('App/Models/Post')
+    .makeMany(20)
+
+    let counter2 = 0;
+    for (const user of users) {
+      await user.post().save(posts[counter2]);
+
+      counter2++;
+    }
+    let counter3 = 0;
+    for (const comment of comments) {
+      await comment.post().save(posts[counter3]);
+
+      counter3++;
+    }
+
     const categories = await Factory
     .model('App/Models/Category')
     .makeMany(20)
 
-    let currentCategoryIndex = 0;
-    const categoryPerIteration = 2;
+    let counter = 0;
+    for (const photo of photos) {
+      await photo.category().save(categories[counter]);
 
-    for(const photo of photos){
-      const selectedCategories = categories.slice(
-        currentCategoryIndex,
-        currentCategoryIndex + categoryPerIteration
-      )
-      await photo
-      .categories()
-      .saveMany(selectedCategories)
-
-      currentCategoryIndex += categoryPerIteration
+      counter++;
     }
+    let counter4 = 0;
+    for (const post of posts) {
+      await post.category().save(categories[counter4]);
 
-    const posts = await Factory
-    .model('App/Models/Post')
-    .makeMany(40)
-
-    let currentPostIndex = 0;
-    const postPerIteration = 2;
-
-    for(const user of users){
-      const selectedposts = posts.slice(
-        currentPostIndex,
-        currentPostIndex + postPerIteration
-      )
-      await user
-      .posts()
-      .saveMany(selectedposts)
-
-      currentPostIndex += postPerIteration
+      counter4++;
     }
-    
-    let currentPostIndex2 = 0;
-    const postPerIteration2 = 2;
-
-    for(const comment of comments){
-      const selectedposts2 = posts.slice(
-        currentPostIndex2,
-        currentPostIndex2 + postPerIteration2
-      )
-      await comment
-      .posts()
-      .saveMany(selectedposts2)
-
-      currentPostIndex2 += postPerIteration2
-    }
-
-    let currentPostIndex3 = 0;
-    const postPerIteration3 = 2;
-
-    for(const category of categories){
-      const selectedposts3 = posts.slice(
-        currentPostIndex3,
-        currentPostIndex3 + postPerIteration3
-      )
-      await category
-      .posts()
-      .saveMany(selectedposts3)
-
-      currentPostIndex3 += postPerIteration3
-    }
-  }
+   }
 }
 
 module.exports = DatabaseSeeder
