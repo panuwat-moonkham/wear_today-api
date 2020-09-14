@@ -21,7 +21,7 @@ class DatabaseSeeder {
   
     const photos = await Factory
     .model('App/Models/Photo')
-    .createMany(20)
+    .createMany(40)
 
     const comments = await Factory
     .model('App/Models/Comment')
@@ -29,71 +29,71 @@ class DatabaseSeeder {
 
     const categories = await Factory
     .model('App/Models/Category')
-    .createMany(20)
+    .makeMany(20)
 
-    // let currentCategoryIndex = 0;
-    // const categoryPerIteration = 2;
+    let currentCategoryIndex = 0;
+    const categoryPerIteration = 2;
 
-    // for(const category of categories){
-    //   const selectedCategories = categories.slice(
-    //     currentCategoryIndex,
-    //     currentCategoryIndex + categoryPerIteration
-    //   )
-    //   await photos
-    //   .categories()
-    //   .saveMany(selectedCategories)
+    for(const photo of photos){
+      const selectedCategories = categories.slice(
+        currentCategoryIndex,
+        currentCategoryIndex + categoryPerIteration
+      )
+      await photo
+      .categories()
+      .saveMany(selectedCategories)
 
-    //   currentCategoryIndex += categoryPerIteration
-    // }
+      currentCategoryIndex += categoryPerIteration
+    }
 
     const posts = await Factory
     .model('App/Models/Post')
-    .createMany(40)
+    .makeMany(40)
 
-    // let currentPostIndex = 0;
-    // const postPerIteration = 2;
+    let currentPostIndex = 0;
+    const postPerIteration = 2;
 
-    // for(const user of users){
-    //   const selectedposts = posts.slice(
-    //     currentPostIndex,
-    //     currentPostIndex + postPerIteration
-    //   )
-    //   await users
-    //   .posts()
-    //   .saveMany(selectedposts)
+    for(const user of users){
+      const selectedposts = posts.slice(
+        currentPostIndex,
+        currentPostIndex + postPerIteration
+      )
+      await user
+      .posts()
+      .saveMany(selectedposts)
 
-    //   currentPostIndex += postPerIteration
-    // }
+      currentPostIndex += postPerIteration
+    }
     
-    // let currentPostIndex = 0;
-    // const postPerIteration = 2;
+    let currentPostIndex2 = 0;
+    const postPerIteration2 = 2;
 
-    // for(const comment of comments){
-    //   const selectedposts = posts.slice(
-    //     currentPostIndex,
-    //     currentPostIndex + postPerIteration
-    //   )
-    //   await comments
-    //   .subjects()
-    //   .saveMany(selectedposts)
+    for(const comment of comments){
+      const selectedposts2 = posts.slice(
+        currentPostIndex2,
+        currentPostIndex2 + postPerIteration2
+      )
+      await comment
+      .posts()
+      .saveMany(selectedposts2)
 
-    //   currentPostIndex += postPerIteration
-    // }
+      currentPostIndex2 += postPerIteration2
+    }
 
-    // let currentSubjectIndex = 0;
-    // const subjectPerIteration = 2;
+    let currentPostIndex3 = 0;
+    const postPerIteration3 = 2;
 
-    // for(const teacher of teachers){
-    //   const selectedSubjects = subjects.slice(
-    //     currentSubjectIndex,
-    //     currentSubjectIndex + subjectPerIteration
-    //   )
-    //   await teacher
-    //   .subjects()
-    //   .saveMany(selectedSubjects)
+    for(const category of categories){
+      const selectedposts3 = posts.slice(
+        currentPostIndex3,
+        currentPostIndex3 + postPerIteration3
+      )
+      await category
+      .posts()
+      .saveMany(selectedposts3)
 
-    //   currentSubjectIndex += subjectPerIteration
-    // }
+      currentPostIndex3 += postPerIteration3
+    }
   }
 }
 
