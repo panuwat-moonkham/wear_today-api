@@ -12,7 +12,14 @@ class CreatePostSchema extends Schema {
       table.timestamp('post_date').default(this.fn.now())
       table.integer('category_id').unsigned()
       table.integer('comment_id').unsigned()
+      table.integer('user_id').unsigned()
       table.timestamps()
+
+      table
+        .foreign('user_id')
+        .references('users.user_id')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE')
 
       table
         .foreign('category_id')

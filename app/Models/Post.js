@@ -18,9 +18,11 @@ class Post extends Model {
     comment(){
         return this.belongsTo('App/Models/Comment')
     }
-    user(){
-        return this.belongsTo('App/Models/User')
-    }
+    users () {
+          return this
+            .belongsToMany('App/Models/User')
+            .pivotModel('App/Models/User_Write_Post')
+        }
     category(){
         return this.belongsTo('App/Models/Category')
     }
