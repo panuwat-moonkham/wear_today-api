@@ -32,30 +32,25 @@ async store ({request}){
 }
 
 async update({ request }) {
-    const { body, params } = request
-    const { id } = params
-    const { post_title,description} = body
+  const {references = undefined} =request.qs
+  const validation = await loginValidator(request.body)
+      
+  if(validation.error){
+    return {status: 422, 
+      error: validation.error,
+      data: undefined}
+  }
+  const postUtil = new PostUtil(Post)
+  const posts = await postUtil
+    .updateById(request,references)
     
-    const postId = await Database
-      .table('posts')
-      .where({ post_id: id })
-      .update({ post_title,description})
-
-    const post = await Database
-      .table('posts')
-      .where({ post_id: postId })
-      .first()
-    
-    return { status: 200, error: undefined, data: post }
+    return { status: 200, error: undefined, data: posts }
       }
 
 async destroy({request}){
-    const {id} = request.params
-    
-    await Database
-      .table('posts')
-      .where({post_id:id})
-      .delete()
+  const {references = undefined} =request.qs
+  const postUtil = new PostUtil(Account)
+  const post = await postUtil.deletById(request,references)
     
     return {status: 200, error: undefined, data: {massage: 'success' }}
     }
