@@ -1,10 +1,9 @@
 'use strict'
 
+const NumberTypeParamValidator = require("../../../service/NumberTypeParamValidator")
 const UserValidator = require("../../../service/UserValidator")
 const UserUtil = require("../../../util/userUtil")
 const User = use('App/Models/User')
-
-// const UserValidator = require("../../../service/UserValidator")
 
 class UserController {
   async index({request}){
@@ -18,6 +17,8 @@ class UserController {
 async show({request}){
     const { id } = request.params
     const { references } = request.qs
+    NumberTypeParamValidator(references)
+
     const userUtil = new UserUtil(User)
     const users =await userUtil.getById(id,references)
   

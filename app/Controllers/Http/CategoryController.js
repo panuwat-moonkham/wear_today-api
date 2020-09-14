@@ -1,5 +1,6 @@
 'use strict'
 
+const NumberTypeParamValidator = require("../../../service/NumberTypeParamValidator")
 const CategoryValidator = require("../../../service/CategoryValidator")
 const Category = use('App/Models/Category')
 const CategoryUtil = require("../../../util/categoryUtil")
@@ -16,6 +17,8 @@ class CategoryController {
 async show({request}){
     const { id } = request.params
     const { references } = request.qs
+    NumberTypeParamValidator(references)
+
     const categoryUtil = new CategoryUtil(Category)
     const category =await categoryUtil.getById(id,references)
   
@@ -55,7 +58,7 @@ async store ({request}){
 
 async update({request}){
     const {references = undefined} =request.qs
-    const validation = await Validator(request.body)
+    const validation = await CategoryValidator(request.body)
       
     if(validation.error){
         return {status: 422, 

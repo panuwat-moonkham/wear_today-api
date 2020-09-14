@@ -16,6 +16,8 @@ class CommentController {
 async show({request}){
     const { id } = request.params
     const { references } = request.qs
+    NumberTypeParamValidator(references)
+
     const commentsUtil = new CommentUtil(Comment)
     const comments =await commentsUtil.getById(id,references)
   

@@ -1,5 +1,6 @@
 'use strict'
 
+const NumberTypeParamValidator = require("../../../service/NumberTypeParamValidator")
 const PostValidator = require("../../../service/PostValidator")
 const Post = use('App/Models/Post')
 const PostUtil = require("../../../util/postUtil")
@@ -16,6 +17,8 @@ class PostController {
 async show({request}){
     const { id } = request.params
     const { references } = request.qs
+    NumberTypeParamValidator(references)
+
     const postUtil = new PostUtil(Post)
     const posts =await postUtil.getById(id,references)
   

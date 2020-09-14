@@ -1,5 +1,6 @@
 'use strict'
 
+const NumberTypeParamValidator = require("../../../service/NumberTypeParamValidator")
 const PhotoValidator = require("../../../service/PhotoValidator")
 const Photo = use('App/Models/Photo')
 const PhotoUtil = require("../../../util/photoUtil")
@@ -16,6 +17,8 @@ class PhotoController {
     async show({request}){
         const { id } = request.params
         const { references } = request.qs
+        NumberTypeParamValidator(references)
+
         const photoUtil = new PhotoUtil(Photo)
         const photos =await photoUtil.getById(id,references)
       
