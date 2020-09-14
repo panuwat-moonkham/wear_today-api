@@ -61,4 +61,4 @@ async destroy({request}){
     }
 }
 
-module.exports = PostContrillerController
+module.exports = PostController

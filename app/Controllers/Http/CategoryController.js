@@ -61,4 +61,4 @@ async destroy({request}){
 }
 }
 
-module.exports = CategoryContrillerController
+module.exports = CategoryController
