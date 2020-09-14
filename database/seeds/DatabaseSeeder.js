@@ -31,51 +31,53 @@ class DatabaseSeeder {
     .model('App/Models/Category')
     .createMany(20)
 
-    let currentCategoryIndex = 0;
-    const categoryPerIteration = 2;
+    // let currentCategoryIndex = 0;
+    // const categoryPerIteration = 2;
 
-    for(const category of categories){
-      const selectedCategories = categories.slice(
-        currentCategoryIndex,
-        currentCategoryIndex + categoryPerIteration
-      )
-      await photos
-      .categories()
-      .saveMany(selectedCategories)
+    // for(const category of categories){
+    //   const selectedCategories = categories.slice(
+    //     currentCategoryIndex,
+    //     currentCategoryIndex + categoryPerIteration
+    //   )
+    //   await photos
+    //   .categories()
+    //   .saveMany(selectedCategories)
 
-      currentCategoryIndex += categoryPerIteration
-    }
+    //   currentCategoryIndex += categoryPerIteration
+    // }
 
     const posts = await Factory
     .model('App/Models/Post')
     .createMany(40)
 
-    // let currentSubjectIndex = 0;
-    // const subjectPerIteration = 2;
+    // let currentPostIndex = 0;
+    // const postPerIteration = 2;
 
-    // for(const teacher of teachers){
-    //   const selectedSubjects = subjects.slice(
-    //     currentSubjectIndex,
-    //     currentSubjectIndex + subjectPerIteration
+    // for(const user of users){
+    //   const selectedposts = posts.slice(
+    //     currentPostIndex,
+    //     currentPostIndex + postPerIteration
     //   )
-    //   await teacher
-    //   .subjects()
-    //   .saveMany(selectedSubjects)
+    //   await users
+    //   .posts()
+    //   .saveMany(selectedposts)
 
-    //   currentSubjectIndex += subjectPerIteration
-    // }// let currentSubjectIndex = 0;
-    // const subjectPerIteration = 2;
+    //   currentPostIndex += postPerIteration
+    // }
+    
+    // let currentPostIndex = 0;
+    // const postPerIteration = 2;
 
-    // for(const teacher of teachers){
-    //   const selectedSubjects = subjects.slice(
-    //     currentSubjectIndex,
-    //     currentSubjectIndex + subjectPerIteration
+    // for(const comment of comments){
+    //   const selectedposts = posts.slice(
+    //     currentPostIndex,
+    //     currentPostIndex + postPerIteration
     //   )
-    //   await teacher
+    //   await comments
     //   .subjects()
-    //   .saveMany(selectedSubjects)
+    //   .saveMany(selectedposts)
 
-    //   currentSubjectIndex += subjectPerIteration
+    //   currentPostIndex += postPerIteration
     // }
 
     // let currentSubjectIndex = 0;

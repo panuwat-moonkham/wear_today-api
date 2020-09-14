@@ -14,9 +14,9 @@ class Category extends Model {
     // static get updatedAtColumn(){
     //     return null;
     // }
-    post(){
+    post () {
         return this.hasMany('App/Models/Post')
-    }
+      }
     photo(){
         return this.belongsTo('App/Models/Photo')
     }

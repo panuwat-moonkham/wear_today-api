@@ -14,15 +14,17 @@ class Post extends Model {
     // static get updatedAtColumn(){
     //     return null;
     // }
-    user(){
-        return this.hasMany('App/Models/User')
-    }
+
     comment(){
         return this.belongsTo('App/Models/Comment')
+    }
+    user(){
+        return this.belongsTo('App/Models/User')
     }
     category(){
         return this.belongsTo('App/Models/Category')
     }
+
 }
 
 module.exports = Post
