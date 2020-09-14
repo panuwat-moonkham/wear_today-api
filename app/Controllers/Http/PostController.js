@@ -23,7 +23,7 @@ async show({request}){
 }
 
 async store ({request}){
-    const {post_title,description} = request.body
+    const {post_title,description,category_id} = request.body
     const { references } = request.qs
     const validation = await PostValidator(request.body)
       
@@ -33,7 +33,7 @@ async store ({request}){
         data: undefined}
     }
     const postUtil = new PostUtil(Post)
-    const post = await postUtil.create({post_title,description},references)
+    const post = await postUtil.create({post_title,description,category_id},references)
     return {status : 200,error : undefined , data : post }
 }
 
@@ -55,7 +55,7 @@ async update({ request }) {
 
 async destroy({request}){
   const {references = undefined} =request.qs
-  const postUtil = new PostUtil(Account)
+  const postUtil = new PostUtil(Post)
   const post = await postUtil.deletById(request,references)
     
     return {status: 200, error: undefined, data: {massage: 'success' }}
