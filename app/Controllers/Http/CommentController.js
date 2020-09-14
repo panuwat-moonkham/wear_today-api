@@ -32,30 +32,25 @@ async store ({request}){
 }
 
 async update({ request }) {
-    const { body, params } = request
-    const { id } = params
-    const { comment_content} = body
-    
-    const commentId = await Database
-      .table('comments')
-      .where({ comment_id: id })
-      .update({ comment_content})
+  const {references = undefined} =request.qs
+  const validation = await Validator(request.body)
 
-    const comment = await Database
-      .table('comments')
-      .where({ comment_id: commentId })
-      .first()
+if(validation.error){
+  return {status: 422, 
+    error: validation.error,
+    data: undefined}
+}
+  const commentUtil = new CommentUtil(Comment)
+  const comment = await commentUtil
+  .updateById(request,references)
     
     return { status: 200, error: undefined, data: comment }
       }
 
 async destroy({request}){
-    const {id} = request.params
-    
-    await Database
-      .table('comments')
-      .where({comment_id:id})
-      .delete()
+    const {references = undefined} =request.qs
+    const commentUtil = new CommentUtil(Comment)
+    const comment = await commentUtil.deletById(request,references)
     
     return {status: 200, error: undefined, data: {massage: 'success' }}
     }
