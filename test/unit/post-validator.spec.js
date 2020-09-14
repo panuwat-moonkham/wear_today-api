@@ -1,15 +1,37 @@
-const PostUtil = require("../../util/postUtil")
-const Post = use('App/Models/Post')
-const { test } = use("Test/Suite")("Post Util")
+'use strict'
 
-test("should get more than one when get many posts", async ({ assert }) => {
-    const postUtil = new PostUtil(Post)
-    const posts = await postUtil.getAll()
-    assert.isAbove(posts.rows.length, 1)
+const {test} = use('Test/Suite')('Post Validator')
+const postValidator = require('../../service/PostValidator')
+
+test('should return error if pass incorrect data', async ({assert}) => {
+  const validateData = await postValidator({
+    post_title: '',
+    user_id: '1'
+  })
+  assert.isOk(validateData.error);
 })
 
-test("should return object created from PostUtil", async ({assert}) => {
-    const post =  new PostUtil(Blog)
-    const {post_id} = await post.getById(1)
-    assert.isOk(post)
+test('should return only one error if pass single incorrect data', async ({assert}) => {
+    const validatedData = await postValidator({
+        post_title: '',
+        user_id: '1'
+    })
+    assert.equal(validatedData.error.length, 1)
 })
+
+test('should return undefined when pass correct data', async ({assert}) => {
+    const validatedData = await postValidator({
+        post_title: '90s style',
+        user_id: '1'
+    })
+    assert.equal(validatedData.error, undefined)
+})
+
+test('should return object when pass correct data ', async ({assert}) => {
+    const validatedData = await postValidator({
+        post_title: '90s style' ,
+        user_id: '1'
+    })
+    assert.isObject(validatedData);
+})
+  
