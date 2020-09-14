@@ -1,6 +1,6 @@
 'use strict'
 
-const Database = use('Database')
+const PhotoValidator = require("../../../service/PhotoValidator")
 const Photo = use('App/Models/Photo')
 const PhotoUtil = require("../../../util/photoUtil")
 
@@ -32,6 +32,14 @@ class PhotoController {
           accessories_image} = request.body
         const { references } = request.qs
     
+        const validation = await PhotoValidator(request.body)
+      
+        if(validation.error){
+        return {status: 422, 
+          error: validation.error,
+          data: undefined}
+      }
+
         const photoUtil = new PhotoUtil(Photo)
         const photo = await photoUtil.create({category_image,
           shirt_image,
@@ -45,7 +53,7 @@ class PhotoController {
     
     async update({ request }) {
       const {references = undefined} =request.qs
-      const validation = await Validator(request.body)
+      const validation = await PhotoValidator(request.body)
     
     if(validation.error){
       return {status: 422, 
