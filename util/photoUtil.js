@@ -42,4 +42,4 @@ class PhotoUtil {
 }
 
 
-module.exports = SubjectUtil
+module.exports = PhotoUtil

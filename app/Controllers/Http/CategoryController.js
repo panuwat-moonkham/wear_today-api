@@ -4,7 +4,7 @@ const Database = use('Database')
 const Category = use('App/Models/Category')
 const CategoryUtil = require("../../../util/categorytUtil")
 
-class CategoryContrillerController {
+class CategoryController {
   async index({request}){
     const {references = undefined} = request.qs
     const CategoryUtil = new CategoryUtil(Category)
@@ -61,4 +61,4 @@ async destroy({request}){
 }
 }
 
-module.exports = CategoryContrillerController
+module.exports = CategoryController

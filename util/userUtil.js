@@ -42,4 +42,4 @@ class UserUtil {
 }
 
 
-module.exports = SubjectUtil
+module.exports = UserUtil

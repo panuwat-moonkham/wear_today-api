@@ -42,4 +42,4 @@ class PostUtil {
 }
 
 
-module.exports = SubjectUtil
+module.exports = PostUtil
