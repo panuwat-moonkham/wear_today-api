@@ -10,7 +10,6 @@ module.exports = async function userValidator (data) {
     last_name: 'required',
     email: 'required|email|unique:users,email',
     username: 'required',
-    email: 'required|email|unique:profiles,email',
     password: 'required|min:8'
   }
 
