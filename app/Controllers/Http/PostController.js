@@ -23,7 +23,7 @@ async show({request}){
 }
 
 async store ({request}){
-    const {post_title,description} = request.body
+    const {post_title,description,category_id} = request.body
     const { references } = request.qs
 
     const postUtil = new PostUtil(Post)
