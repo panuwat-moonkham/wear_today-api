@@ -1,6 +1,6 @@
 'use strict'
 
-const Database = use('Database')
+const PostValidator = require("../../../service/PostValidator")
 const Post = use('App/Models/Post')
 const PostUtil = require("../../../util/postUtil")
 
@@ -25,7 +25,13 @@ async show({request}){
 async store ({request}){
     const {post_title,description} = request.body
     const { references } = request.qs
-
+    const validation = await PostValidator(request.body)
+      
+    if(validation.error){
+      return {status: 422, 
+        error: validation.error,
+        data: undefined}
+    }
     const postUtil = new PostUtil(Post)
     const post = await postUtil.create({post_title,description},references)
     return {status : 200,error : undefined , data : post }
@@ -33,7 +39,7 @@ async store ({request}){
 
 async update({ request }) {
   const {references = undefined} =request.qs
-  const validation = await loginValidator(request.body)
+  const validation = await postValidator(request.body)
       
   if(validation.error){
     return {status: 422, 
