@@ -30,6 +30,35 @@ class CommentUtil {
         .then(response => response.first())
     }
 
+    async deletById(commentInstance){
+        const { id } = commentInstance.params
+        const comments = await this._Comment.find(id)
+
+        if(!comments){
+            return {status : 500 ,error : `Not Found ${id}` , data : undefined};
+        }
+        comments.delete()
+        await comments.save();
+
+        return {status : 200 ,error : undefined , data : 'complete'};
+    }
+
+    async updateById(commentInstance,references){
+        const { id } = commentInstance.params
+        let comments = await this._Comment.find(id)
+
+        if(!comments){
+            return {status : 500 ,error : `Not Found ${id}` , data : undefined};
+        }
+
+        comments.merge(commentInstance.body)
+        await comments.save();
+    
+        comments = this._Comment.query().where({comment_id : id})
+        
+        return this._withReferences(categories,references).fetch().then(response => response.first())
+    }
+
     _withReferrnces(instance,references){
         if(references){
             const extractedReferences = references.split(",")
