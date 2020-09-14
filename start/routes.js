@@ -21,7 +21,7 @@ Route.get('/', () => {
 })
 
 Route.group(() => {
-  Route.resource('/profiles', 'ProfileController')
+  Route.resource('/users', 'UserController')
   Route.resource('/posts','PostController')
   Route.resource('/comment','CommentController')
   Route.resource('/category','CategoryController')

@@ -8,12 +8,13 @@ module.exports = async function profileValidator (data) {
   const rules = {
     first_name: 'required',
     last_name: 'required',
-    email: 'required|email|unique:teachers,email',
+    email: 'required|email|unique:profiles,email',
+    username: 'required',
     password: 'required|min:8'
   }
 
   const validation = await Validator.validateAll({
-    first_name, last_name, email, password
+    first_name, last_name, email, username, password
   }, rules)
 
   return {
