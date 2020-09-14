@@ -26,7 +26,6 @@ async show({request}){
 }
 
 async store ({request}){
-    const {first_name, last_name, username, email, password} = request.body
     const { references } = request.qs
     const validation = await UserValidator(request.body)
       if(validation.error){
