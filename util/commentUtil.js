@@ -42,4 +42,4 @@ class CommentUtil {
 }
 
 
-module.exports = SubjectUtil
+module.exports = CommentUtil

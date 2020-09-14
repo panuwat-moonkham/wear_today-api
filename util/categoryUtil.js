@@ -43,4 +43,4 @@ class CategoryUtil {
 }
 
 
-module.exports = SubjectUtil
+module.exports = CategoryUtil
