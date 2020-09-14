@@ -23,23 +23,51 @@ async show({request}){
 }
 
 async store ({request}){
-    const {category_name,category_detail,shirt_detail,pants_detail,shoes_detail,jacket_detail,hat_detail,accessories_detail} = request.body
+    const {category_name,
+        category_detail,
+        shirt_detail,
+        pants_detail,
+        shoes_detail,
+        jacket_detail,
+        hat_detail,
+        accessories_detail} = request.body
     const { references } = request.qs
 
     const categoryUtil = new CategoryUtil(Category)
-    const category = await categoryUtil.create({category_name,category_detail,shirt_detail,pants_detail,shoes_detail,jacket_detail,hat_detail,accessories_detail},references)
+    const category = await categoryUtil.create({category_name,
+        category_detail,
+        shirt_detail,
+        pants_detail,
+        shoes_detail,
+        jacket_detail,
+        hat_detail,
+        accessories_detail},references)
     return {status : 200,error : undefined , data : category }
 }
 
 async update({request}){
     const {body,params} = request
     const {id} = params
-    const {category_name,category_detail,shirt_detail,pants_detail,shoes_detail,jacket_detail,hat_detail,accessories_detail} = body
+    const {category_name,
+        category_detail,
+        shirt_detail,
+        pants_detail,
+        shoes_detail,
+        jacket_detail,
+        hat_detail,
+        accessories_detail} = body
 
     const categoryId = await Database
     .table('categories')
     .where({category_id:id})
-    .update({category_name,category_detail,shirt_detail,pants_detail,shoes_detail,jacket_detail,hat_detail,accessories_detail})
+    .update({category_name,
+        category_detail,
+        shirt_detail,
+        pants_detail,
+        shoes_detail,
+        jacket_detail,
+        hat_detail,
+        accessories_detail})
 
     const category = await Database
     .table('categories')

@@ -34,12 +34,12 @@ async store ({request}){
 async update({ request }) {
     const { body, params } = request
     const { id } = params
-    const { first_name,last_name,user_name,email,password} = body
+    const { first_name,last_name,username,email,password} = body
     
     const userId = await Database
       .table('users')
       .where({ user_id: id })
-      .update({ first_name,last_name,user_name,email,password})
+      .update({ first_name,last_name,username,email,password})
 
     const user = await Database
       .table('users')

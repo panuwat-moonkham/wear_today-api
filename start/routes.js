@@ -23,7 +23,8 @@ Route.get('/', () => {
 Route.group(() => {
   Route.resource('/users', 'UserController')
   Route.resource('/posts','PostController')
-  Route.resource('/comment','CommentController')
-  Route.resource('/category','CategoryController')
+  Route.resource('/comments','CommentController')
+  Route.resource('/categories','CategoryController')
+  Route.resource('/photos','PhotoController')
 
 }).prefix('api/v1')

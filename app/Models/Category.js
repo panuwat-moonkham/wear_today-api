@@ -7,13 +7,13 @@ class Category extends Model {
     static get primaryKey(){
         return 'category_id'
     }
-    static get createdAtColumn(){
-        return null;
-    }
+    // static get createdAtColumn(){
+    //     return null;
+    // }
 
-    static get updatedAtColumn(){
-        return null;
-    }
+    // static get updatedAtColumn(){
+    //     return null;
+    // }
     post(){
         return this.hasMany('App/Models/Post')
     }

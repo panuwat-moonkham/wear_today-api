@@ -21,9 +21,9 @@ Factory.blueprint('App/Models/User', (faker) => {
   return {
     first_name: faker.first(),
     last_name: faker.last(),
-    user_name: faker.first(),
+    username : faker.word({length : 10}),
     email: faker.email(),
-    password: await Hash.make(faker.password({length: 8}))
+    password : faker.word({length : 10})
   }
 })
 
@@ -61,6 +61,6 @@ Factory.blueprint('App/Models/Category', (faker) => {
   Factory.blueprint('App/Models/Post', (faker) => {
     return {
       post_title: faker.sentence({ words: 2 }),
-      description: faker.sentence({ words: 4 })
+      description: faker.sentence({ words: 8 })
     }
   })
