@@ -14,3 +14,4 @@ test("should return object created from CommentUtil.", async ({assert}) => {
     const {comment_id} = await comment.getById(1)
     assert.isOk(comment)
 })
+
