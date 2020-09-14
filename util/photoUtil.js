@@ -30,6 +30,35 @@ class PhotoUtil {
         .then(response => response.first())
     }
 
+    async deletById(photoInstance){
+        const { id } = photoInstance.params
+        const photos = await this._Photo.find(id)
+
+        if(!photos){
+            return {status : 500 ,error : `Not Found ${id}` , data : undefined};
+        }
+        photos.delete()
+        await photos.save();
+
+        return {status : 200 ,error : undefined , data : 'complete'};
+    }
+
+    async updateById(photoInstance,references){
+        const { id } = photoInstance.params
+        let photos = await this._Photo.find(id)
+
+        if(!photos){
+            return {status : 500 ,error : `Not Found ${id}` , data : undefined};
+        }
+
+        photos.merge(photoInstance.body)
+        await photos.save();
+    
+        photos = this._Photo.query().where({photo_id : id})
+        
+        return this._withReferences(categories,references).fetch().then(response => response.first())
+    }
+
     _withReferrnces(instance,references){
         if(references){
             const extractedReferences = references.split(",")
