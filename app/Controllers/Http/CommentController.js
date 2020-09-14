@@ -1,6 +1,6 @@
 'use strict'
 
-const Database = use('Database')
+const CommentValidator = require("../../../service/CommentValidator")
 const CommentUtil = require("../../../util/commentUtil")
 const Comment = use('App/Models/Comment')
 
@@ -16,6 +16,8 @@ class CommentController {
 async show({request}){
     const { id } = request.params
     const { references } = request.qs
+    NumberTypeParamValidator(references)
+
     const commentsUtil = new CommentUtil(Comment)
     const comments =await commentsUtil.getById(id,references)
   
@@ -25,6 +27,13 @@ async show({request}){
 async store ({request}){
     const {comment_content} = request.body
     const { references } = request.qs
+    const validation = await CommentValidator(request.body)
+
+    if(validation.error){
+      return {status: 422, 
+        error: validation.error,
+        data: undefined}
+    }
 
     const commentUtil = new CommentUtil(Comment)
     const comment = await commentUtil.create({comment_content},references)
@@ -33,7 +42,7 @@ async store ({request}){
 
 async update({ request }) {
   const {references = undefined} =request.qs
-  const validation = await Validator(request.body)
+  const validation = await CommentValidator(request.body)
 
 if(validation.error){
   return {status: 422, 
