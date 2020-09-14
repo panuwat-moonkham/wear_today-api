@@ -1,6 +1,6 @@
 const Validator = use("Validator")
 
-module.exports = async function profileValidator (data) {
+module.exports = async function userValidator (data) {
   if (typeof data !== 'object') throw new Error()
 
   const { first_name, last_name, email, password } = data
@@ -9,7 +9,7 @@ module.exports = async function profileValidator (data) {
     first_name: 'required',
     last_name: 'required',
     email: 'required|email|unique:profiles,email',
-    username: 'required',
+    username: 'required|unique:users,username',
     password: 'required|min:8'
   }
 

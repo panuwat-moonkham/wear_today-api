@@ -2,8 +2,8 @@
 
 const UserUtil = require("../../../util/userUtil")
 const User = use('App/Models/User')
-const Hash = use('Hash')
-// const UserValidator = require("../../../service/UserValidator")
+// const Hash = use('Hash')
+const Validator = require("../../../service/UserValidator")
 
 class UserController {
   async index({request}){
@@ -16,7 +16,7 @@ class UserController {
 
 async show({request}){
     const { id } = request.params
-    const { references } = request.qs
+    const { references = undefined} = request.qs
     const userUtil = new UserUtil(User)
     const users =await userUtil.getById(id,references)
   
@@ -24,13 +24,15 @@ async show({request}){
 }
 
 async store ({request}){
-    const {first_name, last_name, username, email, password} = request.body
     const { references } = request.qs
-
-    const hashedPassword = await Hash.make(password)
-
+    const validation = await Validator(request.body)
     const userUtil = new UserUtil(User)
-    const user = await userUtil.create({first_name, last_name, username, email, password: hashedPassword },references)
+
+    if(validation.error){
+      return {status: 422, error: validation.error,data: undefined}
+  }
+
+    const user = await userUtil.create(request,references)
     return {status : 200,error : undefined , data : user }
 
 }

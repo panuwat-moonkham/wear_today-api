@@ -1,4 +1,3 @@
-const User = require("../app/Models/User")
 
 class UserUtil {
     constructor(UserModel){
@@ -7,32 +6,33 @@ class UserUtil {
 
     getAll(references){
         const users = this._User.query()
-
-        return this._withReferrnces(users).fetch()
+        return this._withReferrnces(users,references)
+            .fetch()
+            .then(response => response)
     }
 
-    getById(userId,references){
+    getById(id,references){
         const user = this._User
         .query()
-        .where('user_id', userId)
-
-        return this._withReferrnces(user)
-        .fetch()
-        .then(response => response.first())
-    }
-    async create(userInstance, references){
-        const userId = await User.create(userInstance)
-        const user =  this._User
-        .query()
-        .where('user_id', userId)
+        .where({user_id : id})
 
         return this._withReferrnces(user,references)
         .fetch()
         .then(response => response.first())
     }
+    async create(request, references){
+        const {user_id} =  await this._User.create(request.body)
+        const users =  this._User
+        .query()
+        .where({user_id:user_id})
 
-    async deletById(userInstance){
-        const { id } = userInstance.params
+        return this._withReferrnces(users,references)
+        .fetch()
+        .then(response => response.first())
+    }
+
+    async deletById(request){
+        const {id} = request.params
         const users = await this._User.find(id)
 
         if(!users){
@@ -44,28 +44,33 @@ class UserUtil {
         return {status : 200 ,error : undefined , data : 'complete'};
     }
 
-    async updateById(userInstance,references){
-        const { id } = userInstance.params
+    async updateById(request,references){
+        const {id} = request.params
         let users = await this._User.find(id)
 
         if(!users){
             return {status : 500 ,error : `Not Found ${id}` , data : undefined};
         }
 
-        users.merge(userInstance.body)
+        users.merge(userrequest.body)
         await users.save();
     
-        users = this._User.query().where({user_id : id})
+        users = this._User
+        .query()
+        .where({user_id : id})
         
-        return this._withReferences(categories,references).fetch().then(response => response.first())
+        return this._withReferences(users,references)
+        .fetch()
+        .then(response => response
+        .first())
     }
 
-    _withReferrnces(instance,references){
+    _withReferrnces(request,references){
         if(references){
             const extractedReferences = references.split(",")
-            instance.with(extractedReferences)
+            request.with(extractedReferences)
         }
-        return instance
+        return request;
     }    
 }
 
