@@ -1,5 +1,6 @@
 'use strict'
 
+const NumberTypeParamValidator = require("../../../service/NumberTypeParamValidator")
 const CommentValidator = require("../../../service/CommentValidator")
 const CommentUtil = require("../../../util/commentUtil")
 const Comment = use('App/Models/Comment')
@@ -16,7 +17,7 @@ class CommentController {
 async show({request}){
     const { id } = request.params
     const { references } = request.qs
-    NumberTypeParamValidator(references)
+    NumberTypeParamValidator(id)
 
     const commentsUtil = new CommentUtil(Comment)
     const comments =await commentsUtil.getById(id,references)

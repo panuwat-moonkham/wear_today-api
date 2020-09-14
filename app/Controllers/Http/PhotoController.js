@@ -17,7 +17,7 @@ class PhotoController {
     async show({request}){
         const { id } = request.params
         const { references } = request.qs
-        NumberTypeParamValidator(references)
+        NumberTypeParamValidator(id)
 
         const photoUtil = new PhotoUtil(Photo)
         const photos =await photoUtil.getById(id,references)
