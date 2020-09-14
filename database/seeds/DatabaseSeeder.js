@@ -19,21 +19,21 @@ class DatabaseSeeder {
     .model('App/Models/User')
     .createMany(20)
 
-    const comment = await Factory
-    .model('App/Models/Subject')
-    .createMany(20)
+    // const comment = await Factory
+    // .model('App/Models/Subject')
+    // .createMany(20)
 
-    const photo = await Factory
-    .model('App/Models/Group')
-    .createMany(20)
+    // const photo = await Factory
+    // .model('App/Models/Group')
+    // .createMany(20)
 
-    const category = await Factory
-    .model('App/Models/Category')
-    .createMany(20)
+    // const category = await Factory
+    // .model('App/Models/Category')
+    // .createMany(20)
 
-    const post = await Factory
-    .model('App/Models/Post')
-    .createMany(20)
+    // const post = await Factory
+    // .model('App/Models/Post')
+    // .createMany(20)
 
     // let currentSubjectIndex = 0;
     // const subjectPerIteration = 2;
