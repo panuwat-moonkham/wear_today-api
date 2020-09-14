@@ -2,7 +2,14 @@
 
 const Database = use('Database')
 const Hash = use('Hash')
-const ProfileValidator = require('../../../service/ProfileValidator')
+// const ProfileValidator = require('../../../service/ProfileValidator')
+
+function numberTypeParamValidator(number) {
+  if (Number.isNaN(parseInt(number)))
+    return { error: `param: ${number} is not supported, please use number type param instead.` }
+
+  return {}
+}
 
 class ProfileController {
     async index () {
@@ -27,10 +34,10 @@ class ProfileController {
     async store ({ request }) {
         const { first_name, last_name, email, password } = request.body
     
-        const validatedData = await ProfileValidator(request.body)
+        // const validatedData = await ProfileValidator(request.body)
     
-        if (validatedData.error)
-          return { status: 422, error: validatedData.error, data: undefined }
+        // if (validatedData.error)
+          // return { status: 422, error: validatedData.error, data: undefined }
     
         const hashedPassword = await Hash.make(password)
     
