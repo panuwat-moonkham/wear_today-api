@@ -1,3 +1,4 @@
+const Category = require("../app/Models/Category")
 
 class CategoryUtil {
     constructor(CategoryModel){
