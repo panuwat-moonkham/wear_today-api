@@ -1,6 +1,4 @@
 
-const Comment = require("../app/Models/Comment")
-
 class CommentUtil {
     constructor(CommentModel){
         this._Comment = CommentModel

@@ -1,6 +1,4 @@
 
-const CategoryUtil = require("../app/Models/Category")
-
 class CategoryUtil {
     constructor(CategoryModel){
         this._Category = CategoryModel
@@ -32,6 +30,34 @@ class CategoryUtil {
         .then(response => response.first())
     }
 
+    async deletById(categoryInstance){
+        const { id } = categoryInstance.params
+        const categories = await this._Category.find(id)
+
+        if(!categories){
+            return {status : 500 ,error : `Not Found ${id}` , data : undefined};
+        }
+        categories.delete()
+        await categories.save();
+
+        return {status : 200 ,error : undefined , data : 'complete'};
+    }
+
+    async updateById(categoryInstance,references){
+        const { id } = categoryInstance.params
+        let categories = await this._Category.find(id)
+
+        if(!categories){
+            return {status : 500 ,error : `Not Found ${id}` , data : undefined};
+        }
+
+        categories.merge(categoryInstance.body)
+        await categories.save();
+    
+        categories = this._Category.query().where({category_id : id})
+        
+        return this._withReferences(categories,references).fetch().then(response => response.first())
+    }
 
     _withReferrnces(instance,references){
         if(references){

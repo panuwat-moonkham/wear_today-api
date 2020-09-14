@@ -1,6 +1,4 @@
 
-const Post = require("../app/Models/Post")
-
 class PostUtil {
     constructor(PostModel){
         this._Post = PostModel

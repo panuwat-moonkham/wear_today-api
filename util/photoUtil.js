@@ -1,6 +1,4 @@
 
-const Photo = require("../app/Models/Photo")
-
 class PhotoUtil {
     constructor(PhotoModel){
         this._Photo = PhotoModel

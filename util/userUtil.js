@@ -1,6 +1,4 @@
 
-const User = require("../app/Models/User")
-
 class UserUtil {
     constructor(UserModel){
         this._User = UserModel
