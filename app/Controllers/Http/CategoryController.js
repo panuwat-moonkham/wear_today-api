@@ -1,6 +1,6 @@
 'use strict'
 
-const Database = use('Database')
+const CategoryValidator = require("../../../service/CategoryValidator")
 const Category = use('App/Models/Category')
 const CategoryUtil = require("../../../util/categoryUtil")
 
@@ -32,9 +32,17 @@ async store ({request}){
         hat_detail,
         accessories_detail} = request.body
     const { references } = request.qs
+    const validation = await CategoryValidator(request.body)
+      
+    if(validation.error){
+        return {status: 422, 
+          error: validation.error,
+          data: undefined}
+      }
 
     const categoryUtil = new CategoryUtil(Category)
-    const category = await categoryUtil.create({category_name,
+    const category = await categoryUtil.create({
+        category_name,
         category_detail,
         shirt_detail,
         pants_detail,
@@ -47,9 +55,9 @@ async store ({request}){
 
 async update({request}){
     const {references = undefined} =request.qs
-        const validation = await Validator(request.body)
+    const validation = await Validator(request.body)
       
-      if(validation.error){
+    if(validation.error){
         return {status: 422, 
           error: validation.error,
           data: undefined}
