@@ -41,10 +41,10 @@ if(validation.error){
     data: undefined}
 }
   const commentUtil = new CommentUtil(Comment)
-  const comment = await commentUtil
+  const comments = await commentUtil
   .updateById(request,references)
     
-    return { status: 200, error: undefined, data: comment }
+    return { status: 200, error: undefined, data: comments }
       }
 
 async destroy({request}){

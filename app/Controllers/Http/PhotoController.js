@@ -44,42 +44,25 @@ class PhotoController {
     }
     
     async update({ request }) {
-        const { body, params } = request
-        const { id } = params
-        const { category_image,
-          shirt_image,
-          pants_image,
-          shoes_image,
-          jacket_image,
-          hat_image,
-          accessories_image} = body
-        
-        const photoId = await Database
-          .table('photos')
-          .where({ photo_id: id })
-          .update({ category_image,
-            shirt_image,
-            pants_image,
-            shoes_image,
-            jacket_image,
-            hat_image,
-            accessories_image})
+      const {references = undefined} =request.qs
+      const validation = await Validator(request.body)
     
-        const photo = await Database
-          .table('photos')
-          .where({ photo_id: photoId })
-          .first()
+    if(validation.error){
+      return {status: 422, 
+        error: validation.error,
+        data: undefined}
+    }
+      const photoUtil = new PhotoUtil(Photo)
+      const photos = await photoUtil
+      .updateById(request,references)
         
-        return { status: 200, error: undefined, data: photo }
+        return { status: 200, error: undefined, data: photos }
           }
     
     async destroy({request}){
-        const {id} = request.params
-        
-        await Database
-          .table('posts')
-          .where({post_id:id})
-          .delete()
+      const {references = undefined} =request.qs
+      const photoUtil = new PhotoUtil(Photo)
+      const photo = await photoUtil.deletById(request,references)
         
         return {status: 200, error: undefined, data: {massage: 'success' }}
         }
