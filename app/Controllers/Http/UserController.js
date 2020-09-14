@@ -62,4 +62,3 @@ async destroy({request}){
 }
 
 module.exports = UserController
-'use strict'

@@ -9,7 +9,7 @@ class CreateUserSchema extends Schema {
       table.increments('user_id')
       table.string('first_name', 50).notNullable()
       table.string('last_name', 50).notNullable()
-      table.string('user_name', 80).notNullable().unique()
+      table.string('username', 80).notNullable().unique()
       table.string('email', 254).notNullable().unique()
       table.string('password', 60).notNullable()
       table.timestamps()
