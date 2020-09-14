@@ -17,7 +17,7 @@ class CategoryController {
 async show({request}){
     const { id } = request.params
     const { references } = request.qs
-    NumberTypeParamValidator(references)
+    NumberTypeParamValidator(id)
 
     const categoryUtil = new CategoryUtil(Category)
     const category =await categoryUtil.getById(id,references)

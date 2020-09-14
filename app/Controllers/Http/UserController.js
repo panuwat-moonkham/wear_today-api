@@ -17,7 +17,7 @@ class UserController {
 async show({request}){
     const { id } = request.params
     const { references } = request.qs
-    NumberTypeParamValidator(references)
+    NumberTypeParamValidator(id)
 
     const userUtil = new UserUtil(User)
     const users =await userUtil.getById(id,references)
@@ -34,7 +34,7 @@ async store ({request}){
           data: undefined}
       }
     const userUtil = new UserUtil(User)
-    const user = await userUtil.create({first_name, last_name, username, email, password: hashedPassword },references)
+    const user = await userUtil.create({first_name, last_name, username, email, password},references)
     return {status : 200,error : undefined , data : user }
 
 }

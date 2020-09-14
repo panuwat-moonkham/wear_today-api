@@ -10,11 +10,12 @@ module.exports = async function userValidator (data) {
     last_name: 'required',
     email: 'required|email|unique:users,email',
     username: 'required',
+    email: 'required|email|unique:profiles,email',
     password: 'required|min:8'
   }
 
   const validation = await Validator.validateAll({
-    first_name, last_name, email, username, password
+    first_name, last_name, username, email,  password
   }, rules)
 
   return {

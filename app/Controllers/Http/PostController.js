@@ -17,7 +17,7 @@ class PostController {
 async show({request}){
     const { id } = request.params
     const { references } = request.qs
-    NumberTypeParamValidator(references)
+    NumberTypeParamValidator(id)
 
     const postUtil = new PostUtil(Post)
     const posts =await postUtil.getById(id,references)
