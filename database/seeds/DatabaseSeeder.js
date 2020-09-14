@@ -15,38 +15,38 @@ const Factory = use('Factory')
 
 class DatabaseSeeder {
   async run () {
-    const user = await Factory
+    const users = await Factory
     .model('App/Models/User')
     .createMany(20)
   
-    const photo = await Factory
+    const photos = await Factory
     .model('App/Models/Photo')
     .createMany(20)
 
-    const comment = await Factory
+    const comments = await Factory
     .model('App/Models/Comment')
     .createMany(20)
 
-    const category = await Factory
+    const categories = await Factory
     .model('App/Models/Category')
     .createMany(20)
 
-    // let currentCategoryIndex = 0;
-    // const categoryPerIteration = 2;
+    let currentCategoryIndex = 0;
+    const categoryPerIteration = 2;
 
-    // for(const category of categoryies){
-    //   const selectedCategories = categories.slice(
-    //     currentCategoryIndex,
-    //     currentCategoryIndex + categoryPerIteration
-    //   )
-    //   await category
-    //   .categories()
-    //   .saveMany(selectedCategories)
+    for(const category of categories){
+      const selectedCategories = categories.slice(
+        currentCategoryIndex,
+        currentCategoryIndex + categoryPerIteration
+      )
+      await photos
+      .categories()
+      .saveMany(selectedCategories)
 
-    //   currentCategoryIndex += categoryPerIteration
-    // }
+      currentCategoryIndex += categoryPerIteration
+    }
 
-    const post = await Factory
+    const posts = await Factory
     .model('App/Models/Post')
     .createMany(40)
 

@@ -46,45 +46,26 @@ async store ({request}){
 }
 
 async update({request}){
-    const {body,params} = request
-    const {id} = params
-    const {category_name,
-        category_detail,
-        shirt_detail,
-        pants_detail,
-        shoes_detail,
-        jacket_detail,
-        hat_detail,
-        accessories_detail} = body
-
-    const categoryId = await Database
-    .table('categories')
-    .where({category_id:id})
-    .update({category_name,
-        category_detail,
-        shirt_detail,
-        pants_detail,
-        shoes_detail,
-        jacket_detail,
-        hat_detail,
-        accessories_detail})
-
-    const category = await Database
-    .table('categories')
-    .where({category_id: categoryId})
-    .first()
+    const {references = undefined} =request.qs
+        const validation = await Validator(request.body)
+      
+      if(validation.error){
+        return {status: 422, 
+          error: validation.error,
+          data: undefined}
+      }
+        const categoytUtil = new CategoryUtil(Category)
+        const category = await categoytUtil
+        .updateById(request,references)
 
     return {status: 200, error: undefined, data: category }
 }
 
 async destroy({request}){
-    const {id} = request.params
-
-    await Database
-    .table('categories')
-    .where({category_id:id})
-    .delete()
-
+    const {references = undefined} =request.qs
+    const categoryUtil = new CategoryUtil(Category)
+    const catecory = await categoryUtil.deletById(request,references)
+    
     return {status: 200, error: undefined, data: {massage: 'success' }}
 }
 }
