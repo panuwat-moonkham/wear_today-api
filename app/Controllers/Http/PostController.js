@@ -4,7 +4,7 @@ const Database = use('Database')
 const Post = use('App/Models/Post')
 const PostUtil = require("../../../util/postUtil")
 
-class PostContrillerController {
+class PostController {
   async index({request}){
     const {references = undefined} = request.qs
     const postUtil = new PostUtil(Post)

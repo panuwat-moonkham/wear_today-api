@@ -4,7 +4,7 @@ const Database = use('Database')
 const CommentUtil = require("../../../util/commentUtil")
 const Comment = use('App/Models/Comment')
 
-class CommentContrillerController {
+class CommentController {
   async index({request}){
     const {references = undefined} = request.qs
     const commentUtil = new CommentUtil(Comment)
