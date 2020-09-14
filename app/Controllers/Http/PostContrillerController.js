@@ -1,77 +1,63 @@
 'use strict'
 
-const Post = require("../../Models/Post")
-
 const Database = use('Database')
+const Post = use('App/Models/Post')
+const PostUtil = require("../../../util/postUtil")
 
-function numberTypeParamValidator(number) {
-    if(Number.isNaN(parseInt(number))) 
-        return { error: ` param: ${number} is not support, Pleasr use number type param instead.` }
-
-    return {}
-}
 class PostContrillerController {
-    async index(){
-        const post = await Database.table('posts')
+  async index({request}){
+    const {references = undefined} = request.qs
+    const postUtil = new PostUtil(Post)
+    const posts = await postUtil.getAll(references)
 
-        return { status : 200 , error : undefined, data : post}
+    return { status : 200 , error : undefined, data : posts}
     }
 
-    async show({request}){
-        const { id } = request.params
+async show({request}){
+    const { id } = request.params
+    const { references } = request.qs
+    const postUtil = new PostUtil(Post)
+    const posts =await postUtil.getById(id,references)
+  
+    return{ status: 200, error : undefined, data : posts ||{} }
+}
 
-        const validatedValue = numberTypeParamValidator(id)
+async store ({request}){
+    const {post_title,description} = request.body
+    const { references } = request.qs
 
-        if(validatedValue.error) return {status: 500, error : validatedValue.error, data : undefined}
+    const postUtil = new PostUtil(Post)
+    const post = await postUtil.create({post_title,description},references)
+    return {status : 200,error : undefined , data : post }
+}
 
-        const post = await Database
-        .select('*')
-        .from('posts')
-        .where("post_id",id)
-        .first()
+async update({ request }) {
+    const { body, params } = request
+    const { id } = params
+    const { post_title,description} = body
+    
+    const postId = await Database
+      .table('posts')
+      .where({ post_id: id })
+      .update({ post_title,description})
 
-        return{ status: 200, error : undefined, data : post ||{} }
-    }
+    const post = await Database
+      .table('posts')
+      .where({ post_id: postId })
+      .first()
+    
+    return { status: 200, error: undefined, data: post }
+      }
 
-    async store ({request}){
-        const {first_name,last_name,email,user_name,password} = request.body
-
-        if(validation.fails())
-            return {status: 422, error: validation.messages(), data: undefined}
-
-        const post = await Post
-        .create({first_name,last_name,email,user_name,password})
-
-        return {status : 200,error : undefined , data : post }
-    }
-
-    async update({request}){
-        const {body,params} = request
-        const {id} = params
-        const {first_name,last_name,email} = body
-
-        const postId = await Database
-        .table('posts')
-        .where({post_id:id})
-        .update({first_name,last_name,email})
-
-        const teacher = await Database
-        .table('posts')
-        .where({post_id: postId})
-        .first()
-
-        return {status: 200, error: undefined, data: teacher }
-    }
-
-    async destroy({request}){
-        const {id} = request.params
-
-        await Database
-        .table('posts')
-        .where({post_id:id})
-        .delete()
-
-        return {status: 200, error: undefined, data: {massage: 'success' }}
+async destroy({request}){
+    const {id} = request.params
+    
+    await Database
+      .table('posts')
+      .where({post_id:id})
+      .delete()
+    
+    return {status: 200, error: undefined, data: {massage: 'success' }}
     }
 }
 
