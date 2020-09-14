@@ -6,7 +6,7 @@ const Schema = use('Schema')
 class CreatePhotoSchema extends Schema {
   up () {
     this.create('photos', (table) => {
-      table.increments('photo_id',150)
+      table.increments('photo_id')
       table.string('category_image',150)
       table.string('shirt_image',150)
       table.string('pants_image',150)

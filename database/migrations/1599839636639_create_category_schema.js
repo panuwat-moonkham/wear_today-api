@@ -7,8 +7,8 @@ class CreateCategorySchema extends Schema {
   up () {
     this.create('categories', (table) => {
       table.increments('category_id')
-      table.string('category_name',120)
-      table.string('category_detail',150)
+      table.string('category_name',80).notNullable()
+      table.string('category_detail')
       table.string('shirt_detail',150)
       table.string('pants_detail',150)
       table.string('shoes_detail',150)

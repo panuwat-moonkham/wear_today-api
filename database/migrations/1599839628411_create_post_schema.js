@@ -7,8 +7,8 @@ class CreatePostSchema extends Schema {
   up () {
     this.create('posts', (table) => {
       table.increments('post_id')
-      table.string('post_title').notNullable()
-      table.string('description').notNullable()
+      table.string('post_title',80).notNullable()
+      table.string('description')
       table.timestamp('post_date').default(this.fn.now())
       table.integer('comment_id').unsigned()
       table.integer('user_id').unsigned()
