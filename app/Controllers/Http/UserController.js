@@ -1,8 +1,9 @@
 'use strict'
 
-const Database = use('Database')
 const UserUtil = require("../../../util/userUtil")
 const User = use('App/Models/User')
+const Hash = use('Hash')
+// const UserValidator = require("../../../service/UserValidator")
 
 class UserController {
   async index({request}){
@@ -23,12 +24,15 @@ async show({request}){
 }
 
 async store ({request}){
-    const {first_name,last_name,user_name,email,password} = request.body
+    const {first_name, last_name, username, email, password} = request.body
     const { references } = request.qs
 
+    const hashedPassword = await Hash.make(password)
+
     const userUtil = new UserUtil(User)
-    const user = await userUtil.create({first_name,last_name,user_name,email,password},references)
+    const user = await userUtil.create({first_name, last_name, username, email, password: hashedPassword },references)
     return {status : 200,error : undefined , data : user }
+
 }
 
 async update({ request }) {
@@ -49,7 +53,7 @@ if(validation.error){
 
 async destroy({request}){
   const {references = undefined} =request.qs
-  const userUtil = new UserUtil(Account)
+  const userUtil = new UserUtil(User)
   const user = await userUtil.deletById(request,references)
 
     return {status: 200, error: undefined, data: {massage: 'success' }}

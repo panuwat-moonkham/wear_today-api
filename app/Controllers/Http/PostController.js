@@ -27,7 +27,7 @@ async store ({request}){
     const { references } = request.qs
 
     const postUtil = new PostUtil(Post)
-    const post = await postUtil.create({post_title,description},references)
+    const post = await postUtil.create({post_title,description,category_id},references)
     return {status : 200,error : undefined , data : post }
 }
 
@@ -49,7 +49,7 @@ async update({ request }) {
 
 async destroy({request}){
   const {references = undefined} =request.qs
-  const postUtil = new PostUtil(Account)
+  const postUtil = new PostUtil(Post)
   const post = await postUtil.deletById(request,references)
     
     return {status: 200, error: undefined, data: {massage: 'success' }}
