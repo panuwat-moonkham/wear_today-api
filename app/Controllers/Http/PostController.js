@@ -59,7 +59,7 @@ async update({ request }) {
 async destroy({request}){
   const {references = undefined} =request.qs
   const postUtil = new PostUtil(Post)
-  const post = await postUtil.deletById(request,references)
+  const post = await postUtil.deleteById(request,references)
     
     return {status: 200, error: undefined, data: {massage: 'success' }}
     }

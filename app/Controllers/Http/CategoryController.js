@@ -75,7 +75,7 @@ async update({request}){
 async destroy({request}){
     const {references = undefined} =request.qs
     const categoryUtil = new CategoryUtil(Category)
-    const catecory = await categoryUtil.deletById(request,references)
+    const catecory = await categoryUtil.deleteById(request,references)
     
     return {status: 200, error: undefined, data: {massage: 'success' }}
 }

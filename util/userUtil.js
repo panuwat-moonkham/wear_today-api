@@ -31,7 +31,7 @@ class UserUtil {
         .then(response => response.first())
     }
 
-    async deletById(userInstance){
+    async deleteById(userInstance){
         const { id } = userInstance.params
         const users = await this._User.find(id)
 
@@ -44,7 +44,7 @@ class UserUtil {
         return {status : 200 ,error : undefined , data : 'complete'};
     }
 
-    async updateById(userInstance,references){
+    async updateById(userInstance){
         const { id } = userInstance.params
         let users = await this._User.find(id)
 
@@ -54,10 +54,8 @@ class UserUtil {
 
         users.merge(userInstance.body)
         await users.save();
-    
-        users = this._User.query().where({user_id : id})
         
-        return this._withReferences(categories,references).fetch().then(response => response.first())
+        return this._withReferences(users,references).fetch().then(response => response.first())
     }
 
     _withReferrnces(instance,references){

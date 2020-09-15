@@ -30,7 +30,7 @@ class CommentUtil {
         .then(response => response.first())
     }
 
-    async deletById(commentInstance){
+    async deleteById(commentInstance){
         const { id } = commentInstance.params
         const comments = await this._Comment.find(id)
 

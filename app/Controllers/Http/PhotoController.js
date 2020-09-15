@@ -73,7 +73,7 @@ class PhotoController {
     async destroy({request}){
       const {references = undefined} =request.qs
       const photoUtil = new PhotoUtil(Photo)
-      const photo = await photoUtil.deletById(request,references)
+      const photo = await photoUtil.deleteById(request,references)
         
         return {status: 200, error: undefined, data: {massage: 'success' }}
         }

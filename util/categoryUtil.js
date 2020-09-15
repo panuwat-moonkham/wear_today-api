@@ -31,7 +31,7 @@ class CategoryUtil {
         .then(response => response.first())
     }
 
-    async deletById(categoryInstance){
+    async deleteById(categoryInstance){
         const { id } = categoryInstance.params
         const categories = await this._Category.find(id)
 

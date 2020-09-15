@@ -30,7 +30,7 @@ class PhotoUtil {
         .then(response => response.first())
     }
 
-    async deletById(photoInstance){
+    async deleteById(photoInstance){
         const { id } = photoInstance.params
         const photos = await this._Photo.find(id)
 

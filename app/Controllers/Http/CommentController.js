@@ -60,7 +60,7 @@ if(validation.error){
 async destroy({request}){
     const {references = undefined} =request.qs
     const commentUtil = new CommentUtil(Comment)
-    const comment = await commentUtil.deletById(request,references)
+    const comment = await commentUtil.deleteById(request,references)
     
     return {status: 200, error: undefined, data: {massage: 'success' }}
     }

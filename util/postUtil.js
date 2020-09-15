@@ -31,7 +31,7 @@ class PostUtil {
         .then(response => response.first())
     }
 
-    async deletById(postInstance){
+    async deleteById(postInstance){
         const { id } = postInstance.params
         const posts = await this._Post.find(id)
 

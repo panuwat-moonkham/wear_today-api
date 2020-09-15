@@ -26,6 +26,7 @@ async show({request}){
 }
 
 async store ({request}){
+    const {first_name, last_name, username, email, password} =request.body
     const { references } = request.qs
     const validation = await UserValidator(request.body)
       if(validation.error){
@@ -58,9 +59,9 @@ async update({ request }) {
 async destroy({request}){
   const {references = undefined} =request.qs
   const userUtil = new UserUtil(User)
-  const user = await userUtil.deletById(request,references)
+  const user = await userUtil.deleteById(request,references)
 
-    return {status: 200, error: undefined, data: {massage: 'success' }}
+    return {status: 200, error: undefined, data: user}
     }
 }
 
