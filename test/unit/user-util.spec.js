@@ -10,6 +10,6 @@ test("should get more than one when get many users", async ({ assert }) => {
 
 test("should return object created from UserUtil", async ({assert}) => {
     const user =  new UserUtil(User)
-    const {user_id} = await user.getById(2)
+    const {user_id} = await user.getById(1)
     assert.isOk(user)
 })

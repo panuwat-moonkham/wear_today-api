@@ -10,6 +10,6 @@ test("should get more than one when get many posts", async ({ assert }) => {
 
 test("should return object created from PostUtil", async ({assert}) => {
     const post =  new PostUtil(Post)
-    const {post_id} = await post.getById(1)
+    const {post_id} = await post.getById(2)
     assert.isOk(post)
 })

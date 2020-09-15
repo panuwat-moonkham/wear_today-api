@@ -10,7 +10,7 @@ test('should return error if pass incorrect data', async ({assert}) => {
     assert.isOk(validatedData.error);
   })
 
-test('should return only one error if pass correct data', async ({assert}) => {
+test('should return only one error if pass incorrect data', async ({assert}) => {
     const validatedData = await commentValidator({
         comment_content: ''
     })
@@ -20,8 +20,6 @@ test('should return only one error if pass correct data', async ({assert}) => {
 test('should return undefined when pass correct data', async ({assert}) => {
     const validatedData = await commentValidator({
         comment_content: 'Good',
-        user_id: '1',
-        post_id: '1'
     })
     assert.equal(validatedData.error, undefined)
   })
@@ -29,8 +27,6 @@ test('should return undefined when pass correct data', async ({assert}) => {
 test('should return object when pass correct data ', async ({assert}) => {
   const validatedData = await commentValidator({
         comment_content: 'Good',
-        user_id: '1',
-        post_id: '1'
     })
     assert.isObject(validatedData);
   })
