@@ -57,7 +57,7 @@ class PostUtil {
     
         posts = this._Post.query().where({post_id : id})
         
-        return this._withReferences(categories,references).fetch().then(response => response.first())
+        return this._withReferences(posts,references).fetch().then(response => response.first())
     }
 
     _withReferrnces(instance,references){

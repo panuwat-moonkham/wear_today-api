@@ -56,7 +56,7 @@ class PhotoUtil {
     
         photos = this._Photo.query().where({photo_id : id})
         
-        return this._withReferences(categories,references).fetch().then(response => response.first())
+        return this._withReferences(photos,references).fetch().then(response => response.first())
     }
 
     _withReferrnces(instance,references){

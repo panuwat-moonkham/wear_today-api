@@ -21,13 +21,14 @@ class CommentUtil {
     }
     async create(commentInstance, references){
         const commentId = await Comment.create(commentInstance)
-        const comment =  this._Comment
-        .query()
-        .where('comment_id', commentId)
+        // const comment =  this._Comment
+        // .query()
+        // .where('comment_id', commentId)
 
-        return this._withReferrnces(comment,references)
-        .fetch()
-        .then(response => response.first())
+        return this._withReferrnces(commentInstance,references)
+        // .where('comment_id',commentId)
+        // .fetch()
+        // .then(response => response.first())
     }
 
     async deleteById(commentInstance){
@@ -54,9 +55,9 @@ class CommentUtil {
         comments.merge(commentInstance.body)
         await comments.save();
     
-        comments = this._Comment.query().where({comment_id : id})
+        comments = this._Comment.query()
         
-        return this._withReferences(categories,references).fetch().then(response => response.first())
+        return this._withReferrnces(comments,references).fetch().then(response => response.first())
     }
 
     _withReferrnces(instance,references){

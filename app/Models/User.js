@@ -7,6 +7,10 @@ const Model = use('Model')
 const Hash = use('Hash')
 
 class User extends Model {
+  static get primaryKey(){
+    return 'user_id'
+}
+
   static boot () {
     super.boot()
 

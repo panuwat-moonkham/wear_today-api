@@ -22,13 +22,13 @@ class UserUtil {
     }
     async create(userInstance, references){
         const userId = await User.create(userInstance)
-        const user =  this._User
-        .query()
-        .where('user_id', userId)
+        // const user =  this._User
+        // .query()
+        // .where('user_id', userId)
 
-        return this._withReferrnces(user,references)
-        .fetch()
-        .then(response => response.first())
+        return this._withReferrnces(userInstance,references)
+        // .fetch()
+        // .then(response => response.first())
     }
 
     async deleteById(userInstance){
